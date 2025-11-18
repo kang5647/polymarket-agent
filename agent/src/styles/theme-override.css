@@ -1,0 +1,18 @@
+:root {
+  --color-ob-base-100: #0a0a0f !important;
+  --color-ob-base-200: #101018 !important;
+  --color-ob-base-300: #181820 !important;
+  --text-color-ob-base-300: #f3f4f6 !important;
+  --color-ob-border: #2d2d38 !important;
+  --color-blue-400: #3aa8ff !important;
+  --color-blue-800: #8b46ff !important;
+  --assistant-bg: #181820 !important;
+  --assistant-border: #2e2e39 !important;
+  --user-start: #3aa8ff !important;
+  --user-end: #8646ff !important;
+}
+
+body {
+  background-color: var(--color-ob-base-100) !important;
+  color: var(--text-color-ob-base-300) !important;
+}

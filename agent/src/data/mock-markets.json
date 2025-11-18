@@ -1,0 +1,26 @@
+[
+  {
+    "id": "us-pres-2024",
+    "name": "Will the Democrat win the 2024 US Presidential Election?",
+    "category": "Politics",
+    "volume": 1234567
+  },
+  {
+    "id": "btc-100k-2025",
+    "name": "Will Bitcoin hit $100k by 2025?",
+    "category": "Crypto",
+    "volume": 842000
+  },
+  {
+    "id": "eth-etf-approval",
+    "name": "Will the US approve an ETH ETF in 2025?",
+    "category": "Crypto",
+    "volume": 510000
+  },
+  {
+    "id": "india-olympics-2036",
+    "name": "Will India host the 2036 Summer Olympics?",
+    "category": "Sports",
+    "volume": 120000
+  }
+]

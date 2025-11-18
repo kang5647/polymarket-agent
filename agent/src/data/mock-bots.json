@@ -1,0 +1,17 @@
+[
+  {
+    "id": "trend-scout",
+    "name": "Trend Scout",
+    "description": "Scans Polymarket for trending and high-volume markets."
+  },
+  {
+    "id": "volatility-hunter",
+    "name": "Volatility Hunter",
+    "description": "Looks for markets with big intraday price swings."
+  },
+  {
+    "id": "election-sentinel",
+    "name": "Election Sentinel",
+    "description": "Monitors US election markets for sudden moves."
+  }
+]
