@@ -2,7 +2,7 @@
 
 ### _AI Agents • MCP Tools • Automated Trading Bots • Market Analyzer_
 
-This project is an exploration of a **full Polymarket ecosystem**, integrating multiple components:
+This project is an exploration of a **full Polymarket ecosystem**, built using the [Nullshot Framework](https://github.com/null-shot) integrating multiple components:
 
 - 🤖 **AI Agent** (LLM UI + tool invocation)
 - 🔌 **Model Context Protocol (MCP) Server** providing tools
