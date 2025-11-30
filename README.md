@@ -17,6 +17,10 @@ The current MVP focuses on:
 This demonstrates how an AI Agent can autonomously activate a trading bot via MCP tools, update UI state, and drive the user experience.
 
 ---
+# Architecture Diagram 
+<img width="3311" height="2065" alt="omnipoly_architecture_diagram" src="https://github.com/user-attachments/assets/9b00ed5d-0444-4faa-85e6-38a2043e3124" />
+
+--- 
 
 # 📂 Project Structure
 
