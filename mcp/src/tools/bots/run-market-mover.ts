@@ -11,8 +11,9 @@ export function setupRunMarketMoverTool(server: McpServer, env: any) {
 			marketName: z.string().describe('Human-friendly name of the market'),
 			targetYes: z.number().nullable().optional().describe('Target YES price trigger'),
 			targetNo: z.number().nullable().optional().describe('Target NO price trigger'),
+			direction: z.enum(['buy', 'sell']).describe('Direction when target hits'),
 		},
-		async ({ userId, marketId, marketName, targetYes = null, targetNo = null }) => {
+		async ({ userId, marketId, marketName, targetYes = null, targetNo = null, direction }) => {
 			try {
 				console.log(`🚀 Running Market Mover for user ${userId} | Market ${marketId}`);
 
@@ -29,6 +30,7 @@ export function setupRunMarketMoverTool(server: McpServer, env: any) {
 						marketName,
 						targetYes,
 						targetNo,
+						direction,
 					}),
 				});
 

@@ -8,7 +8,7 @@ const app = express();
 
 app.use(
 	cors({
-		origin: '*', 
+		origin: '*',
 		methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
 		allowedHeaders: ['Content-Type', 'user-id'],
 	})
@@ -89,65 +89,6 @@ app.get('/api/bots', async (req: any, res) => {
 	}
 });
 
-// --- Activate a generic bot ---
-app.post('/api/bots/market-mover/activate', async (req: any, res) => {
-	try {
-		const { marketId, marketName, targetYes, targetNo } = req.body;
-
-		if (!marketId || !marketName) {
-			return res.status(400).json({
-				success: false,
-				error: 'marketId and marketName are required',
-			});
-		}
-
-		if (targetYes === null && targetNo === null) {
-			return res.status(400).json({
-				success: false,
-				error: 'At least one of targetYes or targetNo required',
-			});
-		}
-
-		// ensure bot exists
-		await env.DB.prepare(
-			`INSERT OR IGNORE INTO bots (user_id, name, status)
-       VALUES (?, 'Market Mover Bot', 'inactive')`
-		)
-			.bind(req.userId)
-			.run();
-
-		// activate bot
-		await env.DB.prepare(
-			`UPDATE bots
-         SET status='active', last_activated=datetime('now')
-         WHERE user_id=? AND name='Market Mover Bot'`
-		)
-			.bind(req.userId)
-			.run();
-
-		// save config
-		await env.DB.prepare(
-			`INSERT OR REPLACE INTO market_mover
-         (user_id, market_id, market_name, target_yes, target_no)
-         VALUES (?, ?, ?, ?, ?)`
-		)
-			.bind(req.userId, marketId, marketName, targetYes, targetNo)
-			.run();
-
-		const desc = AVAILABLE_BOTS.find((x) => x.name === 'Market Mover Bot')?.description;
-
-		return res.json({
-			success: true,
-			message: 'Market Mover Bot activated',
-			description: desc,
-			config: { marketId, marketName, targetYes, targetNo },
-		});
-	} catch (err) {
-		console.error('Market Mover Activation Error:', err);
-		res.status(500).json({ success: false, error: 'Activation failed' });
-	}
-});
-
 // --- Deactivate a bot ---
 app.post('/api/bots/deactivate', async (req: any, res) => {
 	try {
@@ -169,7 +110,7 @@ app.post('/api/bots/deactivate', async (req: any, res) => {
 
 app.post('/api/bots/market-mover/activate', async (req: any, res) => {
 	try {
-		const { marketId, marketName, targetYes, targetNo } = req.body;
+		const { marketId, marketName, targetYes, targetNo, direction } = req.body;
 
 		if (!marketId || !marketName) {
 			return res.status(400).json({
@@ -208,12 +149,12 @@ app.post('/api/bots/market-mover/activate', async (req: any, res) => {
 		// save config
 		await env.DB.prepare(
 			`
-      INSERT OR REPLACE INTO market_mover
-      (user_id, market_id, market_name, target_yes, target_no)
-      VALUES (?, ?, ?, ?, ?)
+	INSERT OR REPLACE INTO market_mover
+	(user_id, market_id, market_name, target_yes, target_no, direction)
+	VALUES (?, ?, ?, ?, ?, ?)
     `
 		)
-			.bind(req.userId, marketId, marketName, targetYes, targetNo)
+			.bind(req.userId, marketId, marketName, targetYes, targetNo, direction)
 			.run();
 
 		return res.json({
@@ -267,9 +208,12 @@ app.get('/api/bots/market-mover/status', async (req: any, res) => {
 
 		// 2️⃣ Load bot config
 		const config = await env.DB.prepare(
-			`SELECT market_id, market_name, target_yes, target_no
+			`SELECT market_id, market_name, target_yes, target_no, direction
        FROM market_mover
-       WHERE user_id=?`
+       WHERE user_id=?
+	   ORDER BY created_at DESC
+       LIMIT 1
+	   `
 		)
 			.bind(req.userId)
 			.first();
@@ -293,6 +237,7 @@ app.get('/api/bots/market-mover/status', async (req: any, res) => {
 				marketName: config.market_name,
 				targetYes: config.target_yes,
 				targetNo: config.target_no,
+				direction: config.direction,
 			},
 			runner: result,
 		});

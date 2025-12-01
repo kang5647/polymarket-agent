@@ -51,20 +51,37 @@ const MarketMoverLive: React.FC<Props> = ({ onBack }) => {
         const targetYes = json.watching?.targetYes ?? null;
         const targetNo = json.watching?.targetNo ?? null;
 
-        // 🎯 YES alert every time threshold is hit
-        if (targetYes !== null && json.runner.priceYes >= targetYes) {
-          toast.success(`🚀 YES price reached ${targetYes.toFixed(3)}`, {
-            description: `Current YES price: ${json.runner.priceYes.toFixed(3)}`
-          });
-          playAlertSound();
+        // 🎯 Direction-aware alerts
+        const direction = json.watching?.direction;
+
+        if (direction === "buy") {
+          if (targetYes !== null && json.runner.priceYes <= targetYes) {
+            toast.success(`🟢 BUY signal: YES <= ${targetYes}`, {
+              description: `YES @ ${json.runner.priceYes.toFixed(3)}`
+            });
+            playAlertSound();
+          }
+          if (targetNo !== null && json.runner.priceNo <= targetNo) {
+            toast.success(`🟢 BUY signal: NO <= ${targetNo}`, {
+              description: `NO @ ${json.runner.priceNo.toFixed(3)}`
+            });
+            playAlertSound();
+          }
         }
 
-        // 🎯 NO alert every time threshold is hit
-        if (targetNo !== null && json.runner.priceNo <= targetNo) {
-          toast.warning(`📉 NO price reached ${targetNo.toFixed(3)}`, {
-            description: `Current NO price: ${json.runner.priceNo.toFixed(3)}`
-          });
-          playAlertSound();
+        if (direction === "sell") {
+          if (targetYes !== null && json.runner.priceYes >= targetYes) {
+            toast.warning(`🔴 SELL signal: YES >= ${targetYes}`, {
+              description: `YES @ ${json.runner.priceYes.toFixed(3)}`
+            });
+            playAlertSound();
+          }
+          if (targetNo !== null && json.runner.priceNo >= targetNo) {
+            toast.warning(`🔴 SELL signal: NO >= ${targetNo}`, {
+              description: `NO @ ${json.runner.priceNo.toFixed(3)}`
+            });
+            playAlertSound();
+          }
         }
       }
     };
@@ -90,7 +107,10 @@ const MarketMoverLive: React.FC<Props> = ({ onBack }) => {
         <div>
           <h2 className="text-xl font-semibold">📈 Market Mover Bot</h2>
           <p className="mt-2 text-gray-300">
-            Watching: <b>{watching.marketName}</b>
+            <p className="mt-2 text-gray-300">
+              Watching: <b>{watching.marketName}</b> (
+              {watching.direction.toUpperCase()})
+            </p>
           </p>
 
           {/* Target badges */}

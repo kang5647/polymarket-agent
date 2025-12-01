@@ -48,18 +48,26 @@ export async function activateMarketMoverBot(
   marketId: string,
   marketName: string,
   targetYes: number | null,
-  targetNo: number | null
+  targetNo: number | null,
+  direction: "buy" | "sell"
 ) {
   const res = await fetch(`${BOT_BACKEND_URL}/api/bots/market-mover/activate`, {
     method: "POST",
-    headers: { "Content-Type": "application/json" },
+    headers: {
+      "Content-Type": "application/json"
+    },
     body: JSON.stringify({
       marketId,
       marketName,
       targetYes,
-      targetNo
+      targetNo,
+      direction
     })
   });
+
+  if (!res.ok) {
+    throw new Error(`Bot activation failed: ${res.status}`);
+  }
 
   return res.json();
 }

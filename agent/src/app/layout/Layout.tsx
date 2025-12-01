@@ -53,8 +53,12 @@ const Layout: React.FC<LayoutProps> = ({
           </div>
         </div>
 
-        <div className="text-xs text-[var(--text-color-ob-base-200)]">
-          v0.1 • Mock demo
+        <div className="flex flex-col items-end text-xs text-[var(--text-color-ob-base-200)] leading-tight">
+          <div>v0.1 • Mock demo</div>
+          <div className="opacity-80">
+            Powered by{" "}
+            <span className="font-semibold text-white">Nullshot MCP</span>
+          </div>
         </div>
       </header>
 

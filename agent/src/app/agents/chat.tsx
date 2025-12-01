@@ -56,7 +56,7 @@ const ChatAgentPage = () => {
   const { setActiveTab } = useTab();
   const goToBots = () => setActiveTab("bots");
 
-  // MCP State (main logic preserved)
+  // MCP State (m fain logic preserved)
   const [mcpUrlInput, setMcpUrlInput] = useState(
     "https://polymarket-mcp.kang5647.workers.dev/sse"
   );
@@ -66,6 +66,8 @@ const ChatAgentPage = () => {
 
   // Settings modal state
   const [showSettings, setShowSettings] = useState(false);
+
+  const lastBotActivationRef = useRef<string | null>(null);
 
   // Agent
   const agent = useAgent({
@@ -95,20 +97,23 @@ const ChatAgentPage = () => {
 
   useEffect(() => {
     const last = agentMessages[agentMessages.length - 1];
-    if (!last) return;
+    if (!last || last.role !== "assistant") return;
 
-    if (last.role === "assistant") {
-      for (const part of last.parts) {
-        if (typeof part.type === "string" && part.type.startsWith("tool-")) {
-          // Extract function name: "tool-<random>_<name>"
-          const encoded = part.type;
-          const realName = encoded.split("_").slice(2).join("_");
+    for (const part of last.parts) {
+      // Check if it's a tool call
+      if (typeof part.type === "string" && part.type.startsWith("tool-")) {
+        const encoded = part.type;
+        const realName = encoded.split("_").slice(2).join("_");
 
-          if (realName === "run_market_mover") {
-            toast("🤖 Bot Activated via AI Agent", {
-              description: "The agent has activated Market Mover Bot for you."
-            });
-          }
+        if (realName === "run_market_mover") {
+          // Prevent duplicate toasts for the same message
+          if (lastBotActivationRef.current === last.id) return;
+
+          lastBotActivationRef.current = last.id;
+
+          toast("🤖 Bot Activated via AI Agent", {
+            description: "The agent has activated Market Mover Bot for you."
+          });
         }
       }
     }
