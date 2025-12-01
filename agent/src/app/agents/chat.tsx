@@ -83,8 +83,6 @@ const ChatAgentPage = () => {
       setMcpServerId(id);
       const state = server.state as string;
       setMcpConnected(state === "connected");
-
-      if (server.server_url) setMcpUrlInput(server.server_url);
     }
   });
 

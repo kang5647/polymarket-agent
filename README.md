@@ -197,7 +197,6 @@ http://localhost:5173
 - Multi-tab layout (Agent / Bots / Analyzer / Markets / Thirdweb)
 - Live Market Mover terminal
 - Vite + Tailwind + React
-- Sonner toast notifications
 
 ---
 

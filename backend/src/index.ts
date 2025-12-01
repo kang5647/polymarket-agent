@@ -8,7 +8,7 @@ const app = express();
 
 app.use(
 	cors({
-		origin: '*', // or specific: "http://localhost:5174"
+		origin: '*', 
 		methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
 		allowedHeaders: ['Content-Type', 'user-id'],
 	})

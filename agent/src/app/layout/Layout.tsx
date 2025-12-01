@@ -36,14 +36,23 @@ const Layout: React.FC<LayoutProps> = ({
         className="flex items-center justify-between px-8 h-16"
         style={{ borderBottom: "2px solid var(--color-ob-border)" }}
       >
-        <div>
-          <h1 className="text-xl font-semibold text-white">
-            Polymarket Dashboard
-          </h1>
-          <p className="text-sm text-[var(--text-color-ob-base-200)]">
-            Chat with the AI agent, manage bots, and explore markets.
-          </p>
+        <div className="flex items-center gap-3">
+          {/* Logo */}
+          <img
+            src="/logo.svg"
+            alt="OmniPoly Logo"
+            className="h-8 w-8 rounded-md object-contain"
+          />
+
+          {/* Title */}
+          <div>
+            <h1 className="text-xl font-semibold text-white">OmniPoly</h1>
+            <p className="text-sm text-[var(--text-color-ob-base-200)]">
+              Chat with the AI agent, manage bots, and explore markets.
+            </p>
+          </div>
         </div>
+
         <div className="text-xs text-[var(--text-color-ob-base-200)]">
           v0.1 • Mock demo
         </div>
