@@ -2,9 +2,6 @@
 
 ### _Built for the Nullshot Hackathon • MCP Agents • Automated Market Bots • Market Intelligence_
 
-🎥 **Demo Video:**
-https://www.youtube.com/watch?v=GiMBFlUf92E
-
 [![Nullshot](https://img.shields.io/badge/Powered%20By-Nullshot%20MCP-7B68EE)](https://nullshot.ai)
 [![Cloudflare Workers](https://img.shields.io/badge/Cloudflare-Workers-orange)](https://workers.cloudflare.com)
 [![Polymarket](https://img.shields.io/badge/Polymarket-Prediction%20Markets-blue)](https://polymarket.com)
