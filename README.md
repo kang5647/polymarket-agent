@@ -1,26 +1,67 @@
-# 🚀 Polymarket Agent Platform
+# 🚀 OmniPoly — Agentic Polymarket Platform
 
-### _AI Agents • MCP Tools • Automated Trading Bots • Market Analyzer_
+### _Built for the Nullshot Hackathon • MCP Agents • Automated Market Bots • Market Intelligence_
 
-This project is an exploration of a **full Polymarket ecosystem**, built using the [Nullshot Framework](https://github.com/null-shot) integrating multiple components:
+🎥 **Demo Video:**
+https://www.youtube.com/watch?v=GiMBFlUf92E
 
-- 🤖 **AI Agent** (LLM UI + tool invocation)
-- 🔌 **Model Context Protocol (MCP) Server** providing tools
-- 🛠️ **Polymarket Bots** (Market Mover bot MVP)
-- 📊 **Market Analyzer (WIP)**
-- 📈 **Trading Tools (WIP)**
+[![Nullshot](https://img.shields.io/badge/Powered%20By-Nullshot%20MCP-7B68EE)](https://nullshot.ai)
+[![Cloudflare Workers](https://img.shields.io/badge/Cloudflare-Workers-orange)](https://workers.cloudflare.com)
+[![Polymarket](https://img.shields.io/badge/Polymarket-Prediction%20Markets-blue)](https://polymarket.com)
 
-The current MVP focuses on:
+**OmniPoly** is a full agentic prediction-market toolkit that shows how an AI agent, empowered by **Nullshot MCP**, can autonomously:
 
-### **➡ Agent → MCP Tool → Bot Activation Flow**
+- discover markets
+- analyze market conditions
+- activate trading bots
+- stream updates
+- trigger alerts
+- and orchestrate an entire prediction-market workflow
 
-This demonstrates how an AI Agent can autonomously activate a trading bot via MCP tools, update UI state, and drive the user experience.
+All through **typed, safe, reproducible MCP tools**.
+
+This project demonstrates the new reality of _agent → MCP → backend → automation_ — the core theme of the Nullshot Agentic Economy.
 
 ---
-# Architecture Diagram 
+
+# 🎯 What OmniPoly Demonstrates
+
+### 🔥 A real, working agentic loop
+
+**“Agent → MCP Tool → Backend → Bot Activation → Live Monitoring”**
+
+### 💜 Built entirely on Nullshot (core value)
+
+Nullshot MCP handles:
+
+- tool registration
+- schema validation
+- invocation routing
+- SSE communication
+- connecting LLMs to deterministic actions
+
+### 📈 Polymarket made agent-friendly
+
+AI-assisted discovery and real-time bot execution give users a smoother, more intuitive prediction-market experience.
+
+---
+
+# 🏗 Architecture Overview
+
 <img width="3311" height="2065" alt="omnipoly_architecture_diagram" src="https://github.com/user-attachments/assets/57f9744f-5d47-461d-bab3-0d6accf1203d" />
 
---- 
+### High-Level Flow
+
+1. **User asks the AI agent**
+2. Agent determines a tool is required
+3. Agent calls a **Nullshot MCP tool**
+4. MCP server routes request → backend bot system
+5. Backend activates Market Mover bot + streams data
+6. UI updates live with bot decisions & alerts
+
+Nullshot is the glue across the entire system.
+
+---
 
 # 📂 Project Structure
 
@@ -156,7 +197,16 @@ The app will open at:
 http://localhost:5173
 ```
 
----
+➡ **Once the frontend loads**:
+
+1. Click “MCP Settings” (top-right gear icon).
+2. Copy your MCP server URL (from the MCP terminal, usually http://localhost:<port>/sse)
+3. Paste it into the MCP Server URL field.
+4. Click “Connect MCP”.
+
+Your agent is now fully connected to the Nullshot MCP server.
+
+## ![alt text](image.png)
 
 # 🔧 Requirements
 
